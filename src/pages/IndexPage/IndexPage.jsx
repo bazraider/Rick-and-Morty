@@ -11,8 +11,8 @@ export default function IndexPage() {
       <h1>Выберите интересующий раздел</h1>
       <div className="chapters__cards">
         <Link to="/characters">
-          <div class="card__outer">
-            <div class="card__inner">
+          <div className="card__outer">
+            <div className="card__inner">
               <img src={characters_img} alt="img of characters" />
               <div className="card__inner__text">
                 <h2>Персонажи</h2>
@@ -21,8 +21,8 @@ export default function IndexPage() {
           </div>
         </Link>
         <Link to="/episodes">
-          <div class="card__outer">
-            <div class="card__inner">
+          <div className="card__outer">
+            <div className="card__inner">
               <img src={episodes_img} />
               <div className="card__inner__text">
                 <h2>Эпизоды</h2>
@@ -31,8 +31,8 @@ export default function IndexPage() {
           </div>
         </Link>
         <Link to="/location">
-          <div class="card__outer">
-            <div class="card__inner">
+          <div className="card__outer">
+            <div className="card__inner">
               <img src={location_img} alt="img of location" />
               <div className="card__inner__text">
                 <h2>Локации</h2>
