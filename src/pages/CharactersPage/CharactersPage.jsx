@@ -1,8 +1,11 @@
 import axios from 'axios';
 import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import './CharactersPage.scss'
 
 export default function CharactersPage() {
+  const dispatch = useDispatch();
+  const listOfCharacters = useSelector((store) => store.characters); // Достаю список из Redux
 
   // Получаем список персонажей с API
   useEffect(() => {
@@ -10,7 +13,10 @@ export default function CharactersPage() {
       .get('https://rickandmortyapi.com/api/character')
       .then((data) => {
         const { results } = data.data;
-        console.log(results);
+        console.log(results); // --------------------------------------------------------------------> TODO - Удалить
+        if (results.length) {
+          dispatch({ type: 'SET_ALL_CHARACTERS', payload: results }) // Записываем в Redux
+        }
       })
       .catch((error) => console.log(error));
   }, []);
@@ -26,6 +32,16 @@ export default function CharactersPage() {
             </g>
           </svg>
         </button>
+      </div>
+      <div className="character-page__cards">
+        {listOfCharacters &&
+          listOfCharacters.map(elem => {
+
+            return (
+              <div>{elem.name}</div>
+            )
+          })
+        }
       </div>
     </div>
   )
