@@ -1,0 +1,47 @@
+@import "./vars.scss";
+
+// ------------------------------------- ШРИФТЫ -------------------------------------------------------------
+
+@import url('https://fonts.googleapis.com/css2?family=Jura:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Mr+Dafoe&family=Nanum+Pen+Script&family=Nothing+You+Could+Do&family=Permanent+Marker&display=swap');
+
+// -----------------------------------------------------------------------------------------------------------
+
+#root {
+  min-height: 100vh;
+  background-image: url(../../static/2.jpg);
+  background-repeat: repeat;
+  background-size: contain;
+  background-position: center;
+  font-family: 'Jura', sans-serif;
+}
+
+:root {
+  --color-active: rgb(195, 65, 53);
+}
+
+.active {
+  color: var(--color-active) !important;
+  cursor: default;
+}
+
+.App {
+  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  color: rgb(243, 66, 2);
+  margin: 0;
+}
+
+h1 {
+  text-align: center;
+}
+
+footer {
+  background-color: rgb(72, 8, 39);
+  z-index: 1;
+}

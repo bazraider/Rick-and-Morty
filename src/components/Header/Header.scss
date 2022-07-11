@@ -1,0 +1,39 @@
+@import '../App/vars.scss';
+
+header {
+  background-color: $main-color;
+  padding: 0.5rem;
+  text-align: center;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  width: 10vw;
+
+  img {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+.navigation {
+  width: 80vw;
+
+  a {
+    color: white;
+    text-decoration: none;
+    padding: 0 1rem;
+    font-size: 2em;
+
+    &:hover {
+      text-decoration: double;
+      color: rgb(243, 66, 2);
+      padding-bottom: 5px;
+      border-bottom: 1px solid rgb(243, 66, 2);
+    }
+  }
+}
