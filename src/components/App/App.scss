@@ -33,7 +33,7 @@
 }
 
 body {
-  color: rgb(243, 66, 2);
+  color: $secondary-color;
   margin: 0;
 }
 
@@ -42,6 +42,6 @@ h1 {
 }
 
 footer {
-  background-color: rgb(72, 8, 39);
+  background-color: $main-color;
   z-index: 1;
 }

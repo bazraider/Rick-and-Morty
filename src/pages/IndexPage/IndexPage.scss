@@ -1,0 +1,66 @@
+@import "../../components/App/vars.scss";
+
+.chapters__wrapper {
+  margin: 0 auto;
+  width: 100%;
+
+  h1 {
+    margin: 3% 0;
+  }
+
+  .chapters__cards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+
+    .card__outer {
+      margin-bottom: 7%;
+      width: 400px;
+      height: 500px;
+      background-image: linear-gradient(163deg, #00ff75 0%, #3700ff 100%);
+      border-radius: 20px;
+      transition: all .3s;
+      cursor: pointer;
+      filter: drop-shadow(0 0 2px $secondary-color);
+
+
+      &:hover {
+        box-shadow: 0px 0px 30px 1px rgba(0, 255, 117, 0.30);
+      }
+
+      .card__inner {
+        width: 400px;
+        height: 500px;
+        background-color: #1a1a1a;
+        border-radius: 19px;
+        transition: all .2s;
+
+        &:hover {
+          transform: scale(0.98);
+          border-radius: 20px;
+        }
+
+        img {
+          width: 100%;
+          height: 80%;
+          border-radius: 20px 20px 0 0;
+          object-fit: cover;
+          filter: drop-shadow(0 0 1px $secondary-color)
+        }
+
+        .card__inner__text {
+          height: 20%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        h2 {
+          margin: 0;
+        }
+      }
+    }
+  }
+}
