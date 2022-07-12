@@ -4,6 +4,7 @@ import React from 'react';
 import CharactersPage from '../pages/CharactersPage/CharactersPage';
 import EpisodesPage from '../pages/EpisodesPage/EpisodesPage';
 import LocationPage from '../pages/LocationPage/LocationPage';
+import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
 
 const routesConfig = [
   {
@@ -25,6 +26,10 @@ const routesConfig = [
   {
     path: '/location',
     element: <LocationPage />
+  },
+  {
+    path: '*',
+    element: <NotFoundPage />
   },
 ];
 

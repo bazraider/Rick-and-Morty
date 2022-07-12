@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import './CharactersPage.scss'
 
@@ -45,7 +46,9 @@ export default function CharactersPage() {
                   </div>
 
                 </div>
-                <button className="card-button">Подробнее</button>
+                <Link to='#'>
+                  <button className="card-button">Подробнее</button>
+                </Link>
               </div>
             )
           })
