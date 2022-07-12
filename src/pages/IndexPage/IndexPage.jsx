@@ -10,7 +10,7 @@ export default function IndexPage() {
     <div className="chapters__wrapper">
       <h1>Выберите интересующий раздел</h1>
       <div className="chapters__cards">
-        <Link to="/characters">
+        <Link to="/characters/?page=1">
           <div className="card__outer">
             <div className="card__inner">
               <img src={characters_img} alt="img of characters" />

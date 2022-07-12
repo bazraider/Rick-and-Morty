@@ -27,10 +27,10 @@ const routesConfig = [
     path: '/location',
     element: <LocationPage />
   },
-  {
-    path: '*',
-    element: <NotFoundPage />
-  },
+  // {
+  //   path: '*',
+  //   element: <NotFoundPage />
+  // },
 ];
 
 export default routesConfig;

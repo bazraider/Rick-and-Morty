@@ -7,7 +7,8 @@ const config = {
   entry: './src/index.js', // входная точка - исходный файл
   output: {
     path: path.resolve(__dirname, 'dist'), // путь к каталогу выходных файлов - папка dist
-    filename: 'index.js' // название создаваемого файла
+    filename: 'index.js', // название создаваемого файла
+    publicPath: '/',
   },
   resolve: {
     extensions: ['.js', '.jsx'], // допустимые расширения файлов
@@ -42,7 +43,9 @@ const config = {
   },
   devServer: {
     historyApiFallback: true,
-    static: path.resolve(__dirname, './dist'),
+    static: {
+      directory: path.resolve(__dirname, 'dist'),
+    },
     open: true,
     compress: true,
     hot: true,

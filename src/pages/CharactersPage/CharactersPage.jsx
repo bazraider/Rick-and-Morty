@@ -1,26 +1,39 @@
 import axios from 'axios';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import './CharactersPage.scss'
+import { getApiResource } from '../../utils/network';
+import { useQueryParams } from '../../hooks/useQueryParams'
 
 export default function CharactersPage() {
+  const [prevPage, setPrevPage] = useState(null);
+  const [nextPage, setNextPage] = useState(null);
+
   const dispatch = useDispatch();
-  const listOfCharacters = useSelector((store) => store.characters); // Достаю список из Redux
+  const listOfCharacters = useSelector((store) => store.characters); // Достаём список персонажей из Redux
+  const query = useQueryParams();
+  const queryPage = query.get('page');
+
+  const getResponse = async (url) => {
+    const res = await getApiResource(url);
+    if (res) {
+      const { results, info } = res.data;
+      console.log(results); // --------------------------------------------------------------------> TODO - Удалить
+      dispatch({ type: 'SET_ALL_CHARACTERS', payload: results }) // Записываем в Redux
+      setNextPage(info.next);
+      setPrevPage(info.prev);
+      // setCounterPage(getPeoplePageId(url));
+    }
+  };
 
   // Получаем список персонажей с API
   useEffect(() => {
-    axios
-      .get('https://rickandmortyapi.com/api/character')
-      .then((data) => {
-        const { results } = data.data;
-        console.log(results); // --------------------------------------------------------------------> TODO - Удалить
-        if (results.length) {
-          dispatch({ type: 'SET_ALL_CHARACTERS', payload: results }) // Записываем в Redux
-        }
-      })
-      .catch((error) => console.log(error));
-  }, []);
+    getResponse(`https://rickandmortyapi.com/api/character/?page=${queryPage}`);
+  }, [queryPage]);
+
+  const handleChangeNext = () => getResponse(nextPage);
+  const handleChangePrev = () => getResponse(prevPage);
 
   return (
     <div className="character-page__wrapper">
@@ -34,6 +47,22 @@ export default function CharactersPage() {
           </svg>
         </button>
       </div>
+      {/* <div className='prev-next-buttons'>
+        <Link to={`/people/?page=${counterPage - 1}`} className='buttons'>
+          <button
+            text="Previous"
+            onClick={handleChangePrev}
+            disabled={!prevPage}
+          />
+        </Link>
+        <Link to={`/people/?page=${counterPage + 1}`} className='buttons'>
+          <button
+            text="Next"
+            onClick={handleChangeNext}
+            disabled={!nextPage}
+          />
+        </Link>
+      </div> */}
       <div className="character-page__cards">
         {listOfCharacters &&
           listOfCharacters.map(elem => {
