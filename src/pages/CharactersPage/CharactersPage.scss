@@ -2,7 +2,7 @@
 
 .character-page__wrapper {
   margin: 2% auto;
-  width: 50%;
+  width: 80%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -131,5 +131,9 @@
         transition: 0.3s ease-out;
       }
     }
+  }
+
+  .prev-next-buttons {
+    margin-bottom: 5%;
   }
 }

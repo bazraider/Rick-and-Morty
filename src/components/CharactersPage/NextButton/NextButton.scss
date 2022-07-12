@@ -1,0 +1,58 @@
+.button__next {
+  height: 50px;
+  width: 150px;
+  cursor: pointer;
+}
+
+.cta {
+  border: none;
+  background: none;
+  margin-left: 50px;
+  cursor: pointer;
+
+  span {
+    padding-bottom: 7px;
+    padding-right: 15px;
+    letter-spacing: 4px;
+    font-size: 1em;
+    text-transform: uppercase;
+  }
+
+  svg {
+    transform: translateX(-8px);
+    transition: all 0.3s ease;
+    fill: white;
+  }
+
+  &:hover svg {
+    transform: translateX(0);
+  }
+
+  &:active svg {
+    transform: scale(0.9);
+  }
+
+  .hover-underline-animation {
+    position: relative;
+    color: white;
+    padding-bottom: 20px;
+
+    &:after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      transform: scaleX(0);
+      height: 1.5px;
+      bottom: 0;
+      left: 0;
+      background-color: white;
+      transform-origin: bottom right;
+      transition: transform 0.25s ease-out;
+    }
+  }
+
+  .cta:hover .hover-underline-animation:after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+}

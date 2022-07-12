@@ -1,29 +1,40 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import './CharactersPage.scss'
 import { getApiResource } from '../../utils/network';
 import { useQueryParams } from '../../hooks/useQueryParams'
+import NextButton from '../../components/CharactersPage/NextButton/NextButton'
+import PrevButton from '../../components/CharactersPage/PrevButton/PrevButton'
 
 export default function CharactersPage() {
+  const dispatch = useDispatch();
+
+  // Заведём стейт для счётчика страниц
+  const [counterPage, setCounterPage] = useState(1);
+
+  // Заведём стейт для предыдущей страницы
   const [prevPage, setPrevPage] = useState(null);
+
+  // Заведём стейт для следующей страницы
   const [nextPage, setNextPage] = useState(null);
 
-  const dispatch = useDispatch();
-  const listOfCharacters = useSelector((store) => store.characters); // Достаём список персонажей из Redux
+  // Достаём список персонажей из Redux
+  const listOfCharacters = useSelector((store) => store.characters);
+
+  // Получаем номер текущей страницы из браузера
   const query = useQueryParams();
   const queryPage = query.get('page');
 
+  // Обрабатываем ответ с API и записываем в стейты
   const getResponse = async (url) => {
     const res = await getApiResource(url);
     if (res) {
       const { results, info } = res.data;
-      console.log(results); // --------------------------------------------------------------------> TODO - Удалить
       dispatch({ type: 'SET_ALL_CHARACTERS', payload: results }) // Записываем в Redux
       setNextPage(info.next);
       setPrevPage(info.prev);
-      // setCounterPage(getPeoplePageId(url));
+      setCounterPage(queryPage);
     }
   };
 
@@ -32,7 +43,10 @@ export default function CharactersPage() {
     getResponse(`https://rickandmortyapi.com/api/character/?page=${queryPage}`);
   }, [queryPage]);
 
+  // Хэндлер на отправку запроса к следующим 20 записям с API
   const handleChangeNext = () => getResponse(nextPage);
+
+  // Хэндлер на отправку запроса к следующим 20 записям с API
   const handleChangePrev = () => getResponse(prevPage);
 
   return (
@@ -47,22 +61,18 @@ export default function CharactersPage() {
           </svg>
         </button>
       </div>
-      {/* <div className='prev-next-buttons'>
-        <Link to={`/people/?page=${counterPage - 1}`} className='buttons'>
-          <button
-            text="Previous"
-            onClick={handleChangePrev}
-            disabled={!prevPage}
-          />
-        </Link>
-        <Link to={`/people/?page=${counterPage + 1}`} className='buttons'>
-          <button
-            text="Next"
-            onClick={handleChangeNext}
-            disabled={!nextPage}
-          />
-        </Link>
-      </div> */}
+
+      <div className='prev-next-buttons'>
+        <PrevButton
+          handleChangePrev={handleChangePrev}
+          prevPage={prevPage}
+          counterPage={counterPage} />
+        <NextButton
+          handleChangeNext={handleChangeNext}
+          nextPage={nextPage}
+          counterPage={counterPage} />
+      </div>
+
       <div className="character-page__cards">
         {listOfCharacters &&
           listOfCharacters.map(elem => {
