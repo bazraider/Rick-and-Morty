@@ -85,7 +85,7 @@ export default function CharactersPage() {
                   </div>
 
                 </div>
-                <Link to='#'>
+                <Link to={`/characters/${elem.id}`}>
                   <button className="card-button">Подробнее</button>
                 </Link>
               </div>
@@ -93,6 +93,6 @@ export default function CharactersPage() {
           })
         }
       </div>
-    </div>
+    </div >
   )
 }
