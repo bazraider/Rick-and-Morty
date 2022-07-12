@@ -1,8 +1,8 @@
 @import "../../components/App/vars.scss";
 
 .character-page__wrapper {
-  margin: 3% auto;
-  width: 80%;
+  margin: 2% auto;
+  width: 70%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,13 +10,13 @@
 
   .search {
     display: flex;
+    margin-bottom: 3%;
     align-items: center;
     justify-content: center;
     text-align: center;
 
     .search__input {
       font-family: inherit;
-      margin-bottom: 10%;
       font-size: inherit;
       background-color: #f4f2f2;
       border: none;
@@ -25,7 +25,7 @@
       border-radius: 30px;
       width: 30vw;
       transition: all ease-in-out .5s;
-      margin-right: -2rem;
+      margin-right: -3rem;
 
       .search__input:hover,
       .search__input:focus {
@@ -52,7 +52,7 @@
       background-color: #f4f2f2;
       margin-top: .1em;
 
-      .search__button:hover {
+      &:hover {
         cursor: pointer;
       }
 
@@ -66,61 +66,69 @@
 
   .character-page__cards {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     flex-wrap: wrap;
 
     .card {
-      width: 190px;
-      height: 254px;
+      width: 170px;
+      height: 220px;
       border-radius: 20px;
-      background: #f5f5f5;
+      background: #1a1a1a;
       position: relative;
-      padding: 1.8rem;
+      margin-bottom: 3%;
       border: 2px solid #c3c6ce;
       transition: 0.5s ease-out;
       overflow: visible;
 
-      .card-details {
-        color: black;
-        height: 100%;
-        gap: .5em;
-        display: grid;
-        place-content: center;
+      &:hover {
+        border-color: $secondary-color;
+        box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+      }
+
+      &:hover .card-button {
+        transform: translate(-50%, -280%);
+        opacity: 1;
+      }
+
+      .card__inner {
+        display: flex;
+        flex-direction: column;
+        height: inherit;
+
+        .card-img {
+          height: 80%;
+          border-radius: 20px 20px 0 0;
+        }
+
+        .card-text {
+          height: 20%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .text-title {
+          font-size: 1em;
+          font-weight: bold;
+          margin: 0;
+        }
       }
 
       .card-button {
         transform: translate(-50%, 125%);
         width: 60%;
+        cursor: pointer;
         border-radius: 1rem;
         border: none;
-        background-color: #008bf8;
+        background-color: $secondary-color;
         color: #fff;
         font-size: 1rem;
-        padding: .5rem 1rem;
+        padding: .5rem;
         position: absolute;
         left: 50%;
         bottom: 0;
         opacity: 0;
         transition: 0.3s ease-out;
-      }
-
-      .text-body {
-        color: rgb(134, 134, 134);
-      }
-
-      .text-title {
-        font-size: 1.5em;
-        font-weight: bold;
-      }
-
-      .card:hover {
-        border-color: #008bf8;
-        box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
-      }
-
-      .card:hover .card-button {
-        transform: translate(-50%, 50%);
-        opacity: 1;
       }
     }
   }

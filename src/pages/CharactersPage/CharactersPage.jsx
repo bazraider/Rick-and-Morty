@@ -37,12 +37,15 @@ export default function CharactersPage() {
         {listOfCharacters &&
           listOfCharacters.map(elem => {
             return (
-              <div class="card" key={elem.id}>
-                <div class="card-details">
-                  <p class="text-title">{elem.name}</p>
-                  <p class="text-body">Here are the details of the card</p>
+              <div className="card" key={elem.id}>
+                <div className="card__inner">
+                  <img src={elem.image} className="card-img" />
+                  <div className="card-text">
+                    <p className="text-title">{elem.name}</p>
+                  </div>
+
                 </div>
-                <button class="card-button">Подробнее</button>
+                <button className="card-button">Подробнее</button>
               </div>
             )
           })
