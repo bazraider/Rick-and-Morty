@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { getApiResource } from '../../utils/network';
+import { BackButton } from '../../components/CharactersPage/BackButton/BackButton'
 
 export default function PersonPage() {
   const { id } = useParams();
@@ -10,7 +11,7 @@ export default function PersonPage() {
   // Добавим лоадер
   const [loading, setLoading] = useState(true);
 
-  console.log(personInfo);
+  console.log(personInfo); // =================================================================> TODO удалить
   // Получаем конкретного персонажа с API с использованием id из useParams
   useEffect(() => {
     const getDataFunc = (async () => {
@@ -22,12 +23,17 @@ export default function PersonPage() {
       .catch(console.error);
   }, []);
 
+  // отображаем спинер если идёт загрузка
   return loading
-    ? (<div class="spinner"></div>)
-    : (<div className="person__wrapper">
-      <img src={personInfo.image} alt="" />
-      <p>{personInfo.name}</p>
-      <p>{personInfo.species}</p>
-      <p>{personInfo.status}</p>
-    </div>)
+    ? (<div className="spinner"></div>)
+    : (
+      <>
+        <BackButton />
+        <div className="person__wrapper">
+          <img src={personInfo.image} alt="" />
+          <p>{personInfo.name}</p>
+          <p>{personInfo.species}</p>
+          <p>{personInfo.status}</p>
+        </div>
+      </>)
 }

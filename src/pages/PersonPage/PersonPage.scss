@@ -15,7 +15,7 @@
     width: 100%;
     height: 100%;
     background-image: linear-gradient(0deg, #ff00cc 0%, #333399 100%);
-    animation: spin8932 .5s infinite linear;
+    animation: spin .5s infinite linear;
   }
 
   &:after {
@@ -26,10 +26,10 @@
     left: 50%;
     transform: translate(-50%, -50%);
   }
-}
 
-@keyframes spin8932 {
-  to {
-    transform: rotate(360deg);
+  @include keyframes (spin) {
+    to {
+      transform: rotate(360deg);
+    }
   }
 }
