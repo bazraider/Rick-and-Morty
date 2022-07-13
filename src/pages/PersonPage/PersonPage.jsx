@@ -24,6 +24,20 @@ export default function PersonPage() {
     }, 1000);
   }, []);
 
+  // Динамическая смена цвета индикатора жизни
+  const getColor = (status) => {
+    switch (status.toLowerCase()) {
+      case 'alive':
+        return '#00ff75'
+      case 'dead':
+        return '#ff4800'
+      case 'unknown':
+        return '#939393'
+      default:
+        return '#939393'
+    }
+  }
+
   // Отображаем спинер если идёт загрузка
   return (
     <>
@@ -36,7 +50,7 @@ export default function PersonPage() {
             <div className="card__inner__text">
               <h1>{personInfo.name}</h1>
               <div className="person__status">
-                <div className="indicator"></div>
+                <div className="indicator" style={{ backgroundColor: getColor(personInfo.status) }}></div>
                 <h3>{personInfo.status} - {personInfo.species} - {personInfo.gender}</h3>
               </div>
               <div className="person__location">
