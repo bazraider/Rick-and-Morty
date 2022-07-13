@@ -54,13 +54,13 @@ export default function LocationPage() {
           handleChangePrev={handleChangePrev}
           prevPage={prevPage}
           counterPage={counterPage}
-          path={'location'}
+          path={{ 'firstParam': 'location', 'secondParam': '' }}
         />
         <NextButton
           handleChangeNext={handleChangeNext}
           nextPage={nextPage}
           counterPage={counterPage}
-          path={'location'}
+          path={{ 'firstParam': 'location', 'secondParam': '' }}
         />
       </div>
       {loading
