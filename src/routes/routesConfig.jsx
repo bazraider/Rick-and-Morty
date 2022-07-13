@@ -30,7 +30,7 @@ const routesConfig = [
     element: <SeasonPage />
   },
   {
-    path: '/seasons/episode/:num/:id',
+    path: '/seasons/:num/episode/:id',
     element: <EpisodePage />
   },
   {

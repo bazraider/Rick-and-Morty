@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import './SeasonChoosePage.scss'
 import '../CharactersPage/CharactersPage'
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { getApiResource } from '../../utils/network';
-import { useQueryParams } from '../../hooks/useQueryParams';
-import episodes_img from '../../static/episodes.jpg'
+import season1_img from '../../static/season1.jpg'
+import season2_img from '../../static/season2.jpg'
+import season3_img from '../../static/season3.jpg'
+import season4_img from '../../static/season4.jpg'
+import season5_img from '../../static/season5.jpg'
 
 export default function EpisodesPage() {
 
@@ -32,7 +33,7 @@ export default function EpisodesPage() {
         <Link to="/seasons/1">
           <div className="card__outer">
             <div className="card__inner">
-              <img src={episodes_img} alt="img of characters" />
+              <img src={season1_img} alt="img of characters" />
               <div className="card__inner__text">
                 <h2>Сезон №1</h2>
               </div>
@@ -43,7 +44,7 @@ export default function EpisodesPage() {
         <Link to="/seasons/2">
           <div className="card__outer">
             <div className="card__inner">
-              <img src={episodes_img} alt="img of characters" />
+              <img src={season2_img} alt="img of characters" />
               <div className="card__inner__text">
                 <h2>Сезон №2</h2>
               </div>
@@ -54,7 +55,7 @@ export default function EpisodesPage() {
         <Link to="/seasons/3">
           <div className="card__outer">
             <div className="card__inner">
-              <img src={episodes_img} alt="img of characters" />
+              <img src={season3_img} alt="img of characters" />
               <div className="card__inner__text">
                 <h2>Сезон №3</h2>
               </div>
@@ -65,7 +66,7 @@ export default function EpisodesPage() {
         <Link to="/seasons/4">
           <div className="card__outer">
             <div className="card__inner">
-              <img src={episodes_img} alt="img of characters" />
+              <img src={season4_img} alt="img of characters" />
               <div className="card__inner__text">
                 <h2>Сезон №4</h2>
               </div>
@@ -76,7 +77,7 @@ export default function EpisodesPage() {
         <Link to="/seasons/5">
           <div className="card__outer">
             <div className="card__inner">
-              <img src={episodes_img} alt="img of characters" />
+              <img src={season5_img} alt="img of characters" />
               <div className="card__inner__text">
                 <h2>Сезон №5</h2>
               </div>

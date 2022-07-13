@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react'
 import './SeasonPage.scss'
 import '../CharactersPage/CharactersPage'
-// import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getApiResource } from '../../utils/network';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { BackButton } from '../../components/CharactersPage/BackButton/BackButton'
 
 // import episodes_img from '../../static/episodes.jpg'
@@ -13,6 +12,14 @@ export default function SeasonPage() {
   const dispatch = useDispatch();
   // Вычисляю номер сезона из строки браузера
   const pageNumber = useLocation().pathname.at(-1);
+
+  // Используем useNavigate для перехода на конкретную серию
+  const navigate = useNavigate();
+
+  // Создадим хэндлер для навигации к конкретному эпизоду
+  const handleRowClick = (id) => {
+    navigate(`/seasons/${pageNumber}/episode/${id}`);
+  }
 
   // Достаём список персонажей из Redux
   const listOfEpisodes = useSelector((store) => store.episodes);
@@ -38,7 +45,6 @@ export default function SeasonPage() {
   // Обрабатываем ответ с API по пагинации и записываем в стейты
   const getResponse = async (url) => {
     const res = await getApiResource(url);
-    console.log(res.data);
     if (res) {
       dispatch({ type: 'SET_ALL_EPISODES_FROM_THIS_SEASON', payload: res.data }) // Записываем в Redux
     }
@@ -55,24 +61,22 @@ export default function SeasonPage() {
       <BackButton />
       <div className="episodes__list">
 
-        <table class="table-fill">
+        <table className="table-fill">
           <thead>
             <tr>
-              <th class="text-left">Номер серии</th>
-              <th class="text-left">Название</th>
-              <th class="text-left">Дата выхода</th>
+              <th className="text-left">Номер серии</th>
+              <th className="text-left">Название</th>
+              <th className="text-left">Дата выхода</th>
             </tr>
           </thead>
-          <tbody class="table-hover">
+          <tbody className="table-hover">
             {listOfEpisodes.map(elem => {
               return (
-                // <Link to={`/seasons/episode/${pageNumber}/${elem.id}`} key={elem.id}>
-                <tr>
-                  <td class="text-left">{elem.id}</td>
-                  <td class="text-left">{elem.name}</td>
-                  <td class="text-left">{elem.air_date}</td>
+                <tr key={elem.id} onClick={() => handleRowClick(elem.id)}>
+                  <td className="text-left">{elem.episode}</td>
+                  <td className="text-left">{elem.name}</td>
+                  <td className="text-left">{elem.air_date}</td>
                 </tr>
-                // </Link>
               )
             })
             }

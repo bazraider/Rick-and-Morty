@@ -31,9 +31,9 @@ export default function PersonPage() {
         <BackButton />
         <div className="person__wrapper">
           <img src={personInfo.image} alt="" />
-          <p>{personInfo.name}</p>
-          <p>{personInfo.species}</p>
-          <p>{personInfo.status}</p>
+          <h2>{personInfo.name}</h2>
+          <h2>{personInfo.species}</h2>
+          <h2>{personInfo.status}</h2>
         </div>
       </>)
 }
