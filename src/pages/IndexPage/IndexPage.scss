@@ -38,6 +38,8 @@
       .card__inner {
         width: 400px;
         height: 500px;
+        display: flex;
+        flex-direction: column;
         background-color: #1a1a1a;
         border-radius: 19px;
         transition: all .2s;

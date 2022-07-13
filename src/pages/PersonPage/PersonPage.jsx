@@ -11,8 +11,6 @@ export default function PersonPage() {
   // Добавим лоадер
   const [loading, setLoading] = useState(true);
 
-  console.log(personInfo);
-
   // Получаем конкретного персонажа с API с использованием id из useParams
   useEffect(() => {
     setTimeout(() => {
