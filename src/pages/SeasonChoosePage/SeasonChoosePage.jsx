@@ -1,7 +1,8 @@
 import React from 'react'
 import './SeasonChoosePage.scss'
-import '../CharactersPage/CharactersPage'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getApiResource } from '../../utils/network';
 import season1_img from '../../static/season1.jpg'
 import season2_img from '../../static/season2.jpg'
 import season3_img from '../../static/season3.jpg'
@@ -9,24 +10,45 @@ import season4_img from '../../static/season4.jpg'
 import season5_img from '../../static/season5.jpg'
 
 export default function EpisodesPage() {
+  const dispatch = useDispatch();
+  // Достаём отфильтрованный список персонажей из Redux
+  const filteredlistOfEpisodes = useSelector((store) => store.filtered_episodes);
+
+  // Используем useNavigate для перехода на конкретную серию
+  const navigate = useNavigate();
+
+  // Создадим хэндлер для навигации к конкретному эпизоду
+  const handleRowClick = (id, num) => {
+    const pageNumber = num.slice(2, 3)
+    navigate(`/seasons/${pageNumber}/episode/${id}`);
+  }
+
+  // Обрабатываем ответ с API по поиску персонажа и записываем в стейты
+  const getFilterResponse = async (url) => {
+    const res = await getApiResource(url);
+    if (res) {
+      const { results } = res.data;
+      dispatch({ type: 'LIST_OF_FILTERED_EPISODES', payload: results }) // Записываем в Redux отфильтрованные эпизоды
+    }
+  }
+
+  const handleInputChange = (event) => {
+    // Очищаем стейт фильтрованных персонажей если в поисковой строке пусто. Если нет, то кидаем запрос на API
+    if (event.target.value.length) {
+      getFilterResponse(`https://rickandmortyapi.com/api/episode/?name=${event.target.value}`)
+    } else dispatch({ type: 'LIST_OF_FILTERED_EPISODES', payload: [] })
+  }
 
   return (
     <div className="episode-page__wrapper">
       <div className="search">
         <input
-          // onChange={handleInputChange}
+          onChange={handleInputChange}
           type="text"
-          name='characterInput'
+          name='episodeInput'
           className="search__input"
           placeholder="Введите название эпизода..."
         />
-        <button className="search__button">
-          <svg className="search__icon" aria-hidden="true" viewBox="0 0 24 24">
-            <g>
-              <path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path>
-            </g>
-          </svg>
-        </button>
       </div>
 
       <div className="episodes__cards">
@@ -85,6 +107,34 @@ export default function EpisodesPage() {
           </div>
         </Link>
       </div>
-    </div >
+
+      {(filteredlistOfEpisodes.length > 0) &&
+        <div className="episodes__search-results">
+          <h1>Результаты поиска:</h1>
+          <table>
+            <thead>
+              <tr>
+                <th className="text-left">Номер серии</th>
+                <th className="text-left">Название</th>
+                <th className="text-left">Дата выхода</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredlistOfEpisodes.map(elem => {
+                return (
+                  <tr key={elem.id} onClick={() => handleRowClick(elem.id, elem.episode)}>
+                    <td className="text-left">{elem.episode}</td>
+                    <td className="text-left">{elem.name}</td>
+                    <td className="text-left">{elem.air_date}</td>
+                  </tr>
+                )
+              })
+              }
+            </tbody>
+          </table>
+        </div>
+      }
+
+    </div>
   )
 }

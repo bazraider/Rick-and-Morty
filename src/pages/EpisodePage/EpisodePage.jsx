@@ -11,7 +11,6 @@ export default function EpisodePage() {
   // Добавим лоадер
   const [loading, setLoading] = useState(true);
 
-  console.log(episodeInfo); // =================================================================> TODO удалить
   // Получаем конкретного персонажа с API с использованием id из useParams
   useEffect(() => {
     const getDataFunc = (async () => {
