@@ -1,22 +1,35 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import './EpisodePage.scss'
+import { Link, useParams } from 'react-router-dom';
 import { getApiResource } from '../../utils/network';
 import { BackButton } from '../../components/CharactersPage/BackButton/BackButton'
 
 export default function EpisodePage() {
   const { id } = useParams();
 
-  // Заведём стейт для информации про персонажа
-  const [episodeInfo, setEpisodeInfo] = useState(null);
+  // Заведём стейт для информации по эпизоду
+  const [episodeInfo, setEpisodeInfo] = useState([]);
   // Добавим лоадер
   const [loading, setLoading] = useState(true);
 
-  // Получаем конкретного персонажа с API с использованием id из useParams
+  const [listOfCharactersFromSeries, setListOfCharactersFromSeries] = useState([]);
+  const { air_date, episode, name } = episodeInfo;
+
+  // Получаем конкретный эпизод с API с использованием id из useParams
   useEffect(() => {
     const getDataFunc = (async () => {
       const info = await getApiResource(`https://rickandmortyapi.com/api/episode/${id}`);
       const { data } = info;
+      console.log('data ===>', data);
       setEpisodeInfo(data);
+
+      const everyPersonOfSeries = await Promise.all(
+        data.characters.map((person) => {
+          return fetch(person).then((res) => res.json());
+        })
+      );
+      console.log('everyPersonOfSeries ===>', everyPersonOfSeries);
+      setListOfCharactersFromSeries(everyPersonOfSeries);
       setLoading(false);
     })()
       .catch(console.error);
@@ -28,26 +41,40 @@ export default function EpisodePage() {
     : (
       <>
         <BackButton />
-        <div className="person__wrapper">
+        <div className="episode__wrapper">
 
-          <table className="table-fill">
-            <thead>
-              <tr>
-                <th className="text-left">Номер серии</th>
-                <th className="text-left">Название</th>
-                <th className="text-left">Дата выхода</th>
-                <th className="text-left">Персонажи</th>
-              </tr>
-            </thead>
-            <tbody className="table-hover">
-              <tr>
-                <td className="text-left">{episodeInfo.episode}</td>
-                <td className="text-left">{episodeInfo.name}</td>
-                <td className="text-left">{episodeInfo.air_date}</td>
-                <td className="text-left">{episodeInfo.characters}</td>
-              </tr>
-            </tbody>
-          </table>
+          <div className="series-info__container">
+            <div className="series-info__inner">
+              <h1>{episode}</h1>
+              <h1>
+                Episode name :{" "}
+                <span>{name === "" ? "Unknown" : name}</span>
+              </h1>
+              <h5>
+                Air Date: {air_date === "" ? "Unknown" : air_date}
+              </h5>
+            </div>
+          </div>
+
+          <div className="character-page__cards">
+            {listOfCharactersFromSeries.map(elem => {
+              return (
+                <div className="card" key={elem.id}>
+                  <div className="card__inner">
+                    <img src={elem.image} className="card-img" />
+                    <div className="card-text">
+                      <p className="text-title">{elem.name}</p>
+                    </div>
+
+                  </div>
+                  <Link to={`/characters/${elem.id}`}>
+                    <button className="card-button">Подробнее</button>
+                  </Link>
+                </div>
+              )
+            })
+            }
+          </div>
 
         </div>
       </>)
