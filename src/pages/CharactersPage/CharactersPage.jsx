@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import './CharactersPage.scss'
 import { getApiResource } from '../../utils/network';
@@ -13,6 +13,8 @@ export default function CharactersPage() {
   const [inputSearchValue, setInputSearchValue] = useState({ characterInput: '' });
   // Заведём стейт для счётчика страниц
   const [counterPage, setCounterPage] = useState(1);
+  // Заведём стейт для счётчика страниц отфильтрованных персонажей
+  const [counterFilteredPage, setCounterFilteredPage] = useState(1);
   // Заведём стейт для предыдущей страницы
   const [prevPage, setPrevPage] = useState(null);
   // Заведём стейт для следующей страницы
@@ -24,6 +26,8 @@ export default function CharactersPage() {
   // Получаем номер текущей страницы из браузера
   const query = useQueryParams();
   const queryPage = query.get('page');
+  // Проверка на то что в строке браузера есть парметр name (это значит что в строке поиска что-то вбито)
+  const filterIncludeInPath = query.get('name')
 
   // Обрабатываем ответ с API по пагинации и записываем в стейты
   const getResponse = async (url) => {
@@ -40,31 +44,64 @@ export default function CharactersPage() {
   // Обрабатываем ответ с API по поиску персонажа и записываем в стейты
   const getFilterResponse = async (url) => {
     const res = await getApiResource(url);
+    console.log(res);
     if (res) {
       const { results, info } = res.data;
       dispatch({ type: 'LIST_OF_FILTERED_CHARACTERS', payload: results }) // Записываем в Redux отфильтрованных персонажей
       setNextPage(info.next);
       setPrevPage(info.prev);
+      setCounterFilteredPage(queryPage);
     }
   }
 
   // Получаем список персонажей с API
   useEffect(() => {
-    getResponse(`https://rickandmortyapi.com/api/character/?page=${queryPage}`);
-  }, [queryPage]);
+    if (!filterIncludeInPath) {
+      getResponse(`https://rickandmortyapi.com/api/character/?page=${queryPage}`);
+    } else {
+      getFilterResponse(`https://rickandmortyapi.com/api/character/?page=${counterFilteredPage}&name=${inputSearchValue.characterInput}`);
+    }
+  }, [queryPage, counterFilteredPage]);
 
   // Хэндлер на отправку запроса к следующим 20 записям с API
-  const handleChangeNext = () => getResponse(nextPage);
+  const handleChangeNext = () => {
+    if (!filterIncludeInPath) {
+      getResponse(nextPage);
+    } else {
+      getFilterResponse(nextPage);
+    }
+  }
 
   // Хэндлер на отправку запроса к следующим 20 записям с API
-  const handleChangePrev = () => getResponse(prevPage);
+  const handleChangePrev = () => {
+    if (!filterIncludeInPath) {
+      getResponse(prevPage);
+    } else {
+      getFilterResponse(prevPage);
+    }
+  }
 
+  // Хэндлер на отлавливание ввода в инпут
   const handleInputChange = (event) => {
     setInputSearchValue({ ...inputSearchValue, [event.target.name]: event.target.value })
     // Очищаем стейт фильтрованных персонажей если в поисковой строке пусто. Если нет, то кидаем запрос на API
     if (event.target.value.length) {
       getFilterResponse(`https://rickandmortyapi.com/api/character/?name=${event.target.value}`)
     } else dispatch({ type: 'LIST_OF_FILTERED_CHARACTERS', payload: [] })
+  }
+
+  // Функция для определения путей для кнопок НАЗАД и ВПЕРЕД
+  const getPath = () => {
+    if (inputSearchValue.characterInput.length) {
+      return `&name=${inputSearchValue.characterInput}`
+    } else return ''
+  }
+
+  // Функция для определения счётчиков ---> без фильтра или с фильтром
+  const getCounter = () => {
+    if (!filterIncludeInPath) {
+      return counterPage;
+    } else return counterFilteredPage;
   }
 
   // Если список с отфильтрованными персонажами не пустой то выводим их, если пустой то выводим всех
@@ -84,11 +121,15 @@ export default function CharactersPage() {
         <PrevButton
           handleChangePrev={handleChangePrev}
           prevPage={prevPage}
-          counterPage={counterPage} />
+          counterPage={getCounter()}
+          path={{ 'firstParam': 'characters/', 'secondParam': getPath() }}
+        />
         <NextButton
           handleChangeNext={handleChangeNext}
           nextPage={nextPage}
-          counterPage={counterPage} />
+          counterPage={getCounter()}
+          path={{ 'firstParam': 'characters/', 'secondParam': getPath() }}
+        />
       </div>
 
       {(filteredlistOfCharacters.length > 0)

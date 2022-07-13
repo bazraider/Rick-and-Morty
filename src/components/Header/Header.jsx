@@ -13,7 +13,7 @@ export default function Header() {
         <NavLink to="/">Главная</NavLink>
         <NavLink to="/characters/?page=1">Персонажи</NavLink>
         <NavLink to="/seasons">Эпизоды</NavLink>
-        <NavLink to="/location">Локации</NavLink>
+        <NavLink to="/location?page=1">Локации</NavLink>
       </div>
     </header>
   )

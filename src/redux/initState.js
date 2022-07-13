@@ -3,4 +3,5 @@ export const initState = {
   filtered_characters: [],
   episodes: [],
   filtered_episodes: [],
+  locations: [],
 };

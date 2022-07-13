@@ -30,7 +30,7 @@ export default function IndexPage() {
             </div>
           </div>
         </Link>
-        <Link to="/location">
+        <Link to="/location?page=1">
           <div className="card__outer">
             <div className="card__inner">
               <img src={location_img} alt="img of location" />

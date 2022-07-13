@@ -1,0 +1,66 @@
+@import "../../components/App/vars.scss";
+
+.location-page__wrapper {
+  margin: 0 auto;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .location-page__cards {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+
+    .card {
+      width: 500px;
+      height: 100px;
+      border-radius: 20px;
+      background: #1a1a1a;
+      position: relative;
+      margin-bottom: 3%;
+      border: 2px solid #c3c6ce;
+      transition: 0.5s ease-out;
+      overflow: visible;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      &:hover {
+        border-color: $secondary-color;
+        box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+      }
+
+      &:hover .card-button {
+        transform: translate(-50%, -280%);
+        opacity: 1;
+      }
+
+      .card__inner {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .card-text {
+          height: 20%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .text-title {
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  .prev-next-buttons {
+    margin-bottom: 2%;
+    margin-top: 2%;
+  }
+}
