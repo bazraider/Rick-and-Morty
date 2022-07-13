@@ -11,7 +11,7 @@ export function BackButton() {
   }
 
   return (
-    <Link to='#'>
+    <Link className='link' to='#'>
       <button
         className='button__goback'
         onClick={handleGoBack}
