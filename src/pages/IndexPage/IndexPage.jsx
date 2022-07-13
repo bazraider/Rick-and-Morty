@@ -20,7 +20,7 @@ export default function IndexPage() {
             </div>
           </div>
         </Link>
-        <Link to="/episodes">
+        <Link to="/seasons">
           <div className="card__outer">
             <div className="card__inner">
               <img src={episodes_img} />

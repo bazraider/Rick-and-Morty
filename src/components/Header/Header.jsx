@@ -11,7 +11,9 @@ export default function Header() {
       </div>
       <div className="navigation">
         <NavLink to="/">Главная</NavLink>
-        <NavLink to="/serial">Список серий</NavLink>
+        <NavLink to="/characters/?page=1">Персонажи</NavLink>
+        <NavLink to="/seasons">Эпизоды</NavLink>
+        <NavLink to="/location">Локации</NavLink>
       </div>
     </header>
   )

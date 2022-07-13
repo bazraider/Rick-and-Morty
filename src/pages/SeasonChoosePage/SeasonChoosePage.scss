@@ -1,0 +1,128 @@
+@import "../../components/App/vars.scss";
+
+.episode-page__wrapper {
+  margin: 2% auto;
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .search {
+    display: flex;
+    margin-bottom: 3%;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    .search__input {
+      font-family: inherit;
+      font-size: inherit;
+      background-color: #f4f2f2;
+      border: none;
+      color: #646464;
+      padding: 0.7rem 1rem;
+      border-radius: 30px;
+      width: 30vw;
+      transition: all ease-in-out .5s;
+      margin-right: -3rem;
+
+      .search__input:hover,
+      .search__input:focus {
+        box-shadow: 0 0 1em #00000013;
+      }
+
+      .search__input:focus {
+        outline: none;
+        background-color: #f0eeee;
+      }
+
+      .search__input::-webkit-input-placeholder {
+        font-weight: 100;
+        color: #ccc;
+      }
+
+      .search__input:focus+.search__button {
+        background-color: #f0eeee;
+      }
+    }
+
+    .search__button {
+      border: none;
+      background-color: #f4f2f2;
+      margin-top: .1em;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      .search__icon {
+        height: 1.3em;
+        width: 1.3em;
+        fill: #b4b4b4;
+      }
+    }
+  }
+
+  .episodes__cards {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+
+    a {
+      color: $secondary-color;
+      text-decoration: none;
+    }
+
+    .card__outer {
+      margin-bottom: 7%;
+      width: 200px;
+      height: 300px;
+      background-image: linear-gradient(163deg, #00ff75 0%, #3700ff 100%);
+      border-radius: 20px;
+      transition: all .3s;
+      cursor: pointer;
+      filter: drop-shadow(0 0 2px $secondary-color);
+
+
+      &:hover {
+        box-shadow: 0px 0px 30px 1px rgba(0, 255, 117, 0.30);
+      }
+
+      .card__inner {
+        width: 200px;
+        height: 300px;
+        background-color: #1a1a1a;
+        border-radius: 19px;
+        transition: all .2s;
+
+        &:hover {
+          transform: scale(0.98);
+          border-radius: 20px;
+        }
+
+        img {
+          width: 100%;
+          height: 80%;
+          border-radius: 20px 20px 0 0;
+          object-fit: cover;
+          filter: drop-shadow(0 0 1px $secondary-color)
+        }
+
+        .card__inner__text {
+          height: 20%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        h2 {
+          margin: 0;
+        }
+      }
+    }
+  }
+}

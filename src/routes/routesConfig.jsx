@@ -1,20 +1,17 @@
 import IndexPage from '../pages/IndexPage/IndexPage';
-import SeriesListPage from '../pages/SeriesListPage/SeriesListPage';
+import EpisodePage from '../pages/EpisodePage/EpisodePage';
 import React from 'react';
 import CharactersPage from '../pages/CharactersPage/CharactersPage';
 import PersonPage from '../pages/PersonPage/PersonPage';
-import EpisodesPage from '../pages/EpisodesPage/EpisodesPage';
+import SeasonChoosePage from '../pages/SeasonChoosePage/SeasonChoosePage';
 import LocationPage from '../pages/LocationPage/LocationPage';
 import NotFoundPage from '../pages/NotFoundPage/NotFoundPage';
+import SeasonPage from '../pages/SeasonPage/SeasonPage';
 
 const routesConfig = [
   {
     path: '/',
     element: <IndexPage />
-  },
-  {
-    path: '/serial',
-    element: <SeriesListPage />
   },
   {
     path: '/characters',
@@ -25,8 +22,16 @@ const routesConfig = [
     element: <PersonPage />
   },
   {
-    path: '/episodes',
-    element: <EpisodesPage />
+    path: '/seasons',
+    element: <SeasonChoosePage />
+  },
+  {
+    path: '/seasons/:num',
+    element: <SeasonPage />
+  },
+  {
+    path: '/seasons/episode/:num/:id',
+    element: <EpisodePage />
   },
   {
     path: '/location',

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import './CharactersPage.scss'
@@ -24,9 +24,6 @@ export default function CharactersPage() {
   // Получаем номер текущей страницы из браузера
   const query = useQueryParams();
   const queryPage = query.get('page');
-
-  console.log('prevPage', prevPage);
-  console.log('nextPage', nextPage);
 
   // Обрабатываем ответ с API по пагинации и записываем в стейты
   const getResponse = async (url) => {
